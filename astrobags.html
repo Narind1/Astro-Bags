@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Bags - Explore Beyond Limits</title>
+    <style>
+        /* Apply the starry background to the entire body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Black background for the page */
+            overflow-y: scroll; /* Allow vertical scrolling */
+            position: relative; /* Allow absolute positioning for stars */
+            color: #fff; /* White text for readability */
+            min-height: 100vh; /* Ensure content extends beyond viewport */
+        }
+        .hero {
+            background: url('img/a.webp') no-repeat center center/cover;
+            height: 100vh;
+            color: #f38510;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+        /* Star styling for the starry sky */
+        .star {
+            position: absolute;
+            background-color: white;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* Adjust star size for smaller screens */
+        @media (max-width: 768px) {
+            .star {
+                width: 1px;
+                height: 1px;
+            }
+        }
+
+        /* Optional - Adjust the text and other elements for better contrast */
+        header, footer, .product-section {
+            position: relative; /* Ensure they sit above the stars */
+            z-index: 1; /* Make sure they stay on top */
+        }
+
+        header {
+            background: #000101;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+        }
+        header img {
+            height: 60px;
+            margin-right: 10px; /* Small gap between logo and text */
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        
+        nav {
+            background: #fc972b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        nav .nav-item {
+            position: relative;
+            margin: 0 1.5rem;
+        }
+        nav a, .dropdown-btn {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .dropdown-btn {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            color: #333;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: #0a0a0a;
+            padding: 10px;
+            display: block;
+            text-decoration: none;
+        }
+        .dropdown-content a:hover {
+            background: #fc972b;
+        }
+        .dropdown-btn:hover .dropdown-content {
+            display: block;
+        }
+        .product-navigation {
+            text-align: center;
+            padding: 12rem 1rem;
+            background-color: #060811;
+        }
+
+        .product-navigation h2 {
+            margin-bottom: 1.5rem;
+            color: #fc972b;
+        }
+
+        /* Product Box Styling */
+        .product-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fc972b; /* Orange background */
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            height: 150px;
+            border-radius: 8px;
+            transition: transform 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+
+        .product-box:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+            background: #000000; /* Darker background on hover */
+        }
+
+        /* Updated Product Grid: 5 items per row */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Fixed 5 equal-width columns */
+            gap: 1rem; /* Space between items */
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        /* Section Styling */
+        .product-body {
+            background-color: #000; /* Black background */
+            padding: 2rem;
+            color: #fff; /* White text for contrast */
+        }
+
+        .products-section {
+            text-align: center;
+            margin: 190px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px; /* Space between products */
+        }
+
+        /* Each product's container */
+        .column {
+            flex: 1 1 calc(33.33% - 20px);  /* 3 items per row */
+            max-width: 425px;                /* Restrict width of the product box */
+            box-sizing: border-box;         /* Ensure padding doesn't affect width */
+            padding: 10px;
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 425px; /* Ensures no column is wider than the img/image */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* img/image styling */
+        .column img {
+            width: 100%;  /* Ensure the img/image fits within the column */
+            height: 250px;  /* Fixed height */
+            object-fit: cover;  /* Maintain aspect ratio, fill container */
+            border-radius: 8px;
+        }
+
+        .price {
+            color: #fc972b; /* Price in orange */
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 768px) {
+            .row {
+                display: block; /* Stack columns vertically on small screens */
+            }
+
+            .column {
+                width: 100%;  /* Make each column full width */
+                margin-bottom: 20px;  /* Space between stacked items */
+            }
+
+            .column img {
+                max-width: 100%;  /* Allow img/image to be responsive */
+                height: auto;     /* Maintain aspect ratio */
+            }
+        }
+        
+
+        /* Styling for the modal */
+        #thankYouModal {
+            padding: 1rem;
+            max-width: 50ch;
+            text-align: center;
+            border: 2px solid #fc972b;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 1em rgba(0, 0, 0, 0.3);
+        }
+
+        #thankYouModal .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #thankYouModal button.close-button {
+            background-color: #fc972b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        #thankYouModal button.close-button:hover {
+            background-color: #ff7f00;
+        }
+
+        /* Modal backdrop */
+        #thankYouModal::backdrop {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        #productInfoModal::backdrop {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Button Styles */
+        .btn {
+            background-color: #fc972b;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ff7f00;
+        }
+
+
+        footer {
+            background: #f18a04;
+            color: #010101;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Basic Styling for the Product Section */
+        .product-section {
+            padding: 2rem;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .price {
+            color: #fc972b;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background: #f18a04;
+            color: #010101;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Header with Logo -->
+     
+    <header>
+        <img src="img/logo.png" alt="Astro Bags Logo">
+        <h1>Astro Bags - Explore Beyond Limits</h1>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        
+        <div class="nav-item dropdown-btn">
+            <a href="#galaxy">Galaxy</a>
+            
+        </div>
+        <div class="nav-item">
+            <a href="#about">About Us</a>
+        </div>
+        <div class="nav-item">
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>Welcome to the Future of Backpack Innovation</h1>
+            <p>Tech-Enhanced. Eco-Friendly. Customizable. For Everyone.</p>
+        </div>
+    </section>
+    <section id="galaxy" class="section">
+    <!-- Product Navigation Section -->
+        <section class="product-navigation">
+            <h2>Explore Our Galaxy</h2>
+            <div class="product-grid">
+                <a href="#tech" class="product-box">Tech-Enhanced</a>
+                <a href="#modular" class="product-box">Modular Backpacks</a>
+                <a href="#eco" class="product-box">Eco-Friendly</a>
+                <a href="#fitness" class="product-box">Fitness & Outdoor</a>
+                <a href="#travel" class="product-box">Travel Backpacks</a>
+                <a href="#smart" class="product-box">Smart</a>
+                <a href="#ergonomic" class="product-box">Ergonomic</a>
+                <a href="#professional" class="product-box">Professional</a>
+                <a href="#fashion" class="product-box">Fashion-Forward</a>
+                <a href="#parent" class="product-box">Parent Backpacks</a>
+            </div>
+        </section>
+    </section>
+    <!-- Product Sections -->
+    <section id="tech" class="products-section">
+        <h2>Tech-Enhanced Backpacks</h2>
+        <p>Explore our cutting-edge tech backpacks featuring wireless charging, solar panels, and anti-theft designs.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/t1.png" alt="Tech-Enhanced Backpack" width="425">
+                <p class="price">₹3,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Tech-Enhanced Backpack', '₹3,500', `
+                    <ul>
+                        <li>Wireless charging for your devices on the go.</li>
+                        <li>Anti-theft design to keep your belongings secure.</li>
+                        <li>Multiple compartments to organize your tech gadgets.</li>
+                        <li>Quick access pockets for your essentials.</li>
+                        <li>Affordable, durable, and perfect for everyday commuting.</li>
+                    </ul>`)">More Information</button>                    
+                    <button class="btn" onclick="showThankYouModal()">Buy Now</button>                
+                </div>
+            </div>
+            <dialog id="productInfoModal">
+                <div class="modal-content">
+                    <button class="close-button" onclick="closeProductInfoModal()">X</button>
+                    <h2 id="productInfoTitle">Product Name</h2>
+                    <p id="productInfoDescription">Product description will go here.</p>
+                    <p id="productInfoPrice">Price: ₹0</p>
+                </div>
+            </dialog>
+            <dialog id="thankYouModal">
+                <div class="modal-content">
+                    <button class="close-button" onclick="closeModal()">X</button>
+                    <h2>Thank You for Buying!</h2>
+                    <p>Your order has been placed successfully.</p>
+                </div>
+            </dialog>
+            <div class="column">
+                <img src="img/t2.png" alt="Tech-Enhanced Backpack" width="425" height="250">
+                <p class="price">₹4,200</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Tech-Enhanced Backpack', '₹4,200', `
+                    <ul>
+                        <li>Wireless charging and solar panel integration.</li>
+                        <li>Sleek, modern anti-theft design for peace of mind.</li>
+                        <li>Durable, high-quality materials for daily use.</li>
+                        <li>Ample space for laptops, tablets, and all your tech devices.</li>
+                        <li>Perfect for long days, travel, or work.</li>
+                        <li>Ideal for digital nomads or tech enthusiasts who need reliability.</li>
+                    </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal()">Buy Now</button>  
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="modular" class="products-section">
+        <h2>Modular Backpacks</h2>
+        <p>Adapt to any situation with our detachable and customizable backpacks.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/m1.png" alt="Modular Backpack" width="425">
+                <p class="price">₹2,300</p>
+                <div class="buttons">
+                    <!-- More Information button with specific description for this product -->
+                    <button class="btn" onclick="showProductInfo('Modular Backpack', '₹2,300', `
+                        <ul>
+                            <li>Customizable with detachable compartments.</li>
+                            <li>Perfect for work, travel, and outdoor activities.</li>
+                            <li>Durable and versatile design.</li>
+                            <li>Affordable and functional for everyday use.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Modular Backpack', '₹2,300')">Buy Now</button>  
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image.png" alt="Modular Backpack" width="425" height="250">
+                <p class="price">₹2,500</p>
+                <div class="buttons">
+                    <!-- More Information button with specific description for this product -->
+                    <button class="btn" onclick="showProductInfo('Modular Backpack', '₹2,500', `
+                        <ul>
+                            <li>Detachable components for easy customization.</li>
+                            <li>Water-resistant fabric for protection in all weather conditions.</li>
+                            <li>Multiple compartments for organizing personal items.</li>
+                            <li>Ideal for students and professionals alike.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Modular Backpack', '₹2,500')">Buy Now</button>  
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy.png" alt="Modular Backpack" width="425" height="250">
+                <p class="price">₹3,500</p>
+                <div class="buttons">
+                    <!-- More Information button with specific description for this product -->
+                    <button class="btn" onclick="showProductInfo('Modular Backpack', '₹3,500', `
+                        <ul>
+                            <li>Advanced customization with high-quality materials.</li>
+                            <li>Ergonomically designed for comfort and practicality.</li>
+                            <li>Perfect for travelers who need adaptable storage space.</li>
+                            <li>Built to last with durable, eco-friendly materials.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Modular Backpack', '₹3,500')">Buy Now</button>  
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modal for Product Information -->
+    <dialog id="productInfoModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeProductInfoModal()">X</button>
+            <h2 id="productInfoTitle">Product Name</h2>
+            <div id="productInfoDescription">Product description will go here.</div>
+            <p id="productInfoPrice">Price: ₹0</p>
+        </div>
+    </dialog>
+    
+    <!-- Modal for Thank You (Buy Now) -->
+    <dialog id="thankYouModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">X</button>
+            <h2>Thank You for Buying!</h2>
+            <p>Your order has been placed successfully.</p>
+        </div>
+    </dialog>
+    
+    <section id="eco" class="products-section">
+        <h2>Eco-Friendly Backpacks</h2>
+        <p>Make sustainable choices with our eco-friendly backpacks crafted from recycled materials.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 2.png" alt="Eco-Friendly Backpack" width="425">
+                <p class="price">₹1,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Eco-Friendly Backpack', '₹1,500', `
+                        <ul>
+                            <li>Crafted from recycled and sustainable materials.</li>
+                            <li>Lightweight and durable design, perfect for eco-conscious individuals.</li>
+                            <li>Spacious compartments for easy storage.</li>
+                            <li>Perfect for daily use or weekend getaways.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Eco-Friendly Backpack', '₹1,500')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 3.png" alt="Eco-Friendly Backpack" width="425" height="250">
+                <p class="price">₹2,000</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Eco-Friendly Backpack', '₹2,000', `
+                        <ul>
+                            <li>Made with eco-friendly and durable materials.</li>
+                            <li>Water-resistant and weatherproof.</li>
+                            <li>Perfect for outdoor activities and travel.</li>
+                            <li>Spacious compartments for all your essentials.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Eco-Friendly Backpack', '₹2,000')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 4.png" alt="Eco-Friendly Backpack" width="425">
+                <p class="price">₹2,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Eco-Friendly Backpack', '₹2,500', `
+                        <ul>
+                            <li>Eco-conscious and sustainable design.</li>
+                            <li>Made with high-quality recycled materials for durability.</li>
+                            <li>Ample space for your tech, books, and more.</li>
+                            <li>Perfect for city commuters and students.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Eco-Friendly Backpack', '₹2,500')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="fitness" class="products-section">
+        <h2>Fitness & Outdoor Backpacks</h2>
+        <p>Stay active with backpacks designed for outdoor adventures and fitness enthusiasts.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 6.png" alt="Fitness Backpack" width="425">
+                <p class="price">₹1,200</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fitness Backpack', '₹1,200', `
+                        <ul>
+                            <li>Compact and lightweight design for fitness enthusiasts.</li>
+                            <li>Water-resistant material to withstand the elements.</li>
+                            <li>Designed to hold gym clothes, water bottles, and gear.</li>
+                            <li>Perfect for short trips and outdoor activities.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fitness Backpack', '₹1,200')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 5.png" alt="Fitness Backpack" width="425" height="250">
+                <p class="price">₹1,600</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fitness Backpack', '₹1,600', `
+                        <ul>
+                            <li>Ergonomically designed for comfort during workouts.</li>
+                            <li>Multiple pockets for storing gym gear and accessories.</li>
+                            <li>Durable, lightweight, and water-resistant material.</li>
+                            <li>Ideal for outdoor sports and fitness activities.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fitness Backpack', '₹1,600')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 7.png" alt="Fitness Backpack" width="425">
+                <p class="price">₹2,000</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fitness Backpack', '₹2,000', `
+                        <ul>
+                            <li>Large storage capacity to hold your fitness essentials.</li>
+                            <li>Made with breathable and lightweight material.</li>
+                            <li>Water-resistant and durable for outdoor adventures.</li>
+                            <li>Perfect for hiking, gym, and fitness-related activities.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fitness Backpack', '₹2,000')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 8.png" alt="Fitness Backpack" width="425">
+                <p class="price">₹2,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fitness Backpack', '₹2,500', `
+                        <ul>
+                            <li>Designed for active lifestyles and outdoor adventures.</li>
+                            <li>Perfect for carrying gym gear, tech, and water bottles.</li>
+                            <li>Breathable, lightweight fabric for comfort and ventilation.</li>
+                            <li>Waterproof and durable for all-weather use.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fitness Backpack', '₹2,500')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="travel" class="products-section">
+        <h2>Functional Travel Backpacks</h2>
+        <p>Pack smart with our travel backpacks featuring expandable compartments and luggage integration.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 9.png" alt="Travel Backpack" width="425" height="250">
+                <p class="price">₹2,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Travel Backpack', '₹2,500', `
+                        <ul>
+                            <li>Expandable compartments for more packing space.</li>
+                            <li>Integrated luggage pass-through for easy travel.</li>
+                            <li>Durable, water-resistant material for various travel conditions.</li>
+                            <li>Perfect for short trips and business travel.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Travel Backpack', '₹2,500')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 10.png" alt="Travel Backpack" width="425">
+                <p class="price">₹2,800</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Travel Backpack', '₹2,800', `
+                        <ul>
+                            <li>Designed for frequent travelers and commuters.</li>
+                            <li>Multiple compartments to keep your essentials organized.</li>
+                            <li>Expandable for extra storage space.</li>
+                            <li>Made with durable, high-quality materials to withstand travel wear and tear.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Travel Backpack', '₹2,800')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 11.png" alt="Travel Backpack" width="425">
+                <p class="price">₹3,100</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Travel Backpack', '₹3,100', `
+                        <ul>
+                            <li>Expandable for longer trips with extra compartments.</li>
+                            <li>Convenient carry handles and adjustable shoulder straps for comfort.</li>
+                            <li>Water-resistant fabric for travel in any weather.</li>
+                            <li>Ideal for business travel, weekend getaways, or daily commuting.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Travel Backpack', '₹3,100')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 12.png" alt="Travel Backpack" width="425">
+                <p class="price">₹3,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Travel Backpack', '₹3,500', `
+                        <ul>
+                            <li>Made with premium materials for long-lasting durability.</li>
+                            <li>Expandable compartments and multiple pockets for maximum organization.</li>
+                            <li>Perfect for travelers looking for functionality and style.</li>
+                            <li>Great for both short-term and long-term trips.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Travel Backpack', '₹3,500')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Smart Backpacks Section -->
+    <section id="smart" class="products-section">
+        <h2>Smart Backpacks</h2>
+        <p>Experience the future with GPS tracking, Bluetooth integration, and voice control.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 13.png" alt="Smart Backpack" width="425" height="250">
+                <p class="price">₹3,000</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Smart Backpack', '₹3,000', `
+                        <ul>
+                            <li>GPS tracking for added security.</li>
+                            <li>Bluetooth integration for hands-free communication.</li>
+                            <li>Voice control for seamless operation.</li>
+                            <li>Perfect for tech-savvy travelers and commuters.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Smart Backpack', '₹3,000')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 14.png" alt="Smart Backpack" width="425">
+                <p class="price">₹3,100</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Smart Backpack', '₹3,100', `
+                        <ul>
+                            <li>Advanced Bluetooth and GPS features.</li>
+                            <li>Convenient storage for all your tech gadgets.</li>
+                            <li>Wireless charging for your devices on the go.</li>
+                            <li>Durable and stylish design for modern professionals.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Smart Backpack', '₹3,100')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 15.png" alt="Smart Backpack" width="425">
+                <p class="price">₹3,300</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Smart Backpack', '₹3,300', `
+                        <ul>
+                            <li>High-tech features with integrated GPS and Bluetooth.</li>
+                            <li>Smart storage solutions for your everyday essentials.</li>
+                            <li>Perfect for digital nomads and remote workers.</li>
+                            <li>Built-in voice assistant for hands-free operation.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Smart Backpack', '₹3,300')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 16.png" alt="Smart Backpack" width="425">
+                <p class="price">₹3,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Smart Backpack', '₹3,500', `
+                        <ul>
+                            <li>Ultimate smart features including GPS and Bluetooth integration.</li>
+                            <li>Seamless voice control and hands-free operation.</li>
+                            <li>Premium build quality for durability and style.</li>
+                            <li>Perfect for those who want to stay connected and organized on the go.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Smart Backpack', '₹3,500')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ergonomic Backpacks Section -->
+    <section id="ergonomic" class="products-section">
+        <h2>Ergonomic Backpacks</h2>
+        <p>Prioritize health with ergonomic designs that promote even weight distribution.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 20.png" alt="Ergonomic Backpack" width="425">
+                <p class="price">₹2,400</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Ergonomic Backpack', '₹2,400', `
+                        <ul>
+                            <li>Ergonomically designed to reduce strain on your back.</li>
+                            <li>Even weight distribution for added comfort.</li>
+                            <li>Perfect for long hours of carrying your essentials.</li>
+                            <li>Stylish and functional for both work and leisure.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Ergonomic Backpack', '₹2,400')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 17.png" alt="Ergonomic Backpack" width="425">
+                <p class="price">₹2,800</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Ergonomic Backpack', '₹2,800', `
+                        <ul>
+                            <li>Advanced ergonomic design to reduce pressure on shoulders and spine.</li>
+                            <li>Multiple adjustable straps for a customizable fit.</li>
+                            <li>Lightweight material without compromising durability.</li>
+                            <li>Ideal for daily commuting or hiking.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Ergonomic Backpack', '₹2,800')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 18.png" alt="Ergonomic Backpack" width="425">
+                <p class="price">₹3,000</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Ergonomic Backpack', '₹3,000', `
+                        <ul>
+                            <li>Perfect for long days of travel with ergonomic design.</li>
+                            <li>Provides even weight distribution across the body.</li>
+                            <li>Breathable and adjustable padding for all-day comfort.</li>
+                            <li>Spacious compartments to carry all your essentials.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Ergonomic Backpack', '₹3,000')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 19.png" alt="Ergonomic Backpack" width="425">
+                <p class="price">₹3,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Ergonomic Backpack', '₹3,500', `
+                        <ul>
+                            <li>Perfect ergonomic design for long-lasting comfort.</li>
+                            <li>Provides back support to reduce strain and injury.</li>
+                            <li>Made from durable, lightweight materials.</li>
+                            <li>Ideal for heavy-duty use, travel, and outdoor activities.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Ergonomic Backpack', '₹3,500')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional & Student Backpacks Section -->
+    <section id="professional" class="products-section">
+        <h2>Professional & Student Backpacks</h2>
+        <p>Stay organized with backpacks designed for professionals and students alike.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 24.png" alt="Professional Backpack" width="425">
+                <p class="price">₹1,300</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Professional Backpack', '₹1,300', `
+                        <ul>
+                            <li>Simple and stylish design suitable for office and school.</li>
+                            <li>Multiple compartments to organize your tech, books, and accessories.</li>
+                            <li>Lightweight and comfortable for daily use.</li>
+                            <li>Perfect for professionals and students alike.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Professional Backpack', '₹1,300')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 21.png" alt="Professional Backpack" width="425">
+                <p class="price">₹1,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Professional Backpack', '₹1,500', `
+                        <ul>
+                            <li>Ideal for professionals who need an organized, sleek solution.</li>
+                            <li>Perfect compartments for your laptop, tablet, and documents.</li>
+                            <li>Made from high-quality, durable materials.</li>
+                            <li>Comfortable straps for everyday use.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Professional Backpack', '₹1,500')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 22.png" alt="Professional Backpack" width="425">
+                <p class="price">₹1,800</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Professional Backpack', '₹1,800', `
+                        <ul>
+                            <li>Perfect for busy professionals needing a versatile backpack.</li>
+                            <li>Multiple storage options for devices, papers, and accessories.</li>
+                            <li>Durable construction for long-lasting use.</li>
+                            <li>Lightweight and comfortable for daily commuting.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Professional Backpack', '₹1,800')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 23.png" alt="Professional Backpack" width="425">
+                <p class="price">₹2,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Professional Backpack', '₹2,500', `
+                        <ul>
+                            <li>Designed for the modern professional with organizational features.</li>
+                            <li>Includes compartments for laptops, tablets, documents, and more.</li>
+                            <li>Durable, water-resistant material for all conditions.</li>
+                            <li>Comfortable to wear with ergonomic shoulder straps.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Professional Backpack', '₹2,500')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fashion-Forward Backpacks Section -->
+    <section id="fashion" class="products-section">
+        <h2>Fashion-Forward Backpacks</h2>
+        <p>Combine style and functionality with our chic and trendy designs.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 28.png" alt="Fashion-Forward Backpack" width="425">
+                <p class="price">₹1,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fashion-Forward Backpack', '₹1,500', `
+                        <ul>
+                            <li>Stylish and functional design perfect for fashion-forward individuals.</li>
+                            <li>Multiple compartments for organization and easy access.</li>
+                            <li>Durable fabric with a trendy look.</li>
+                            <li>Ideal for casual outings and everyday use.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fashion-Forward Backpack', '₹1,500')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 25.png" alt="Fashion-Forward Backpack" width="425">
+                <p class="price">₹2,200</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fashion-Forward Backpack', '₹2,200', `
+                        <ul>
+                            <li>Chic and modern design perfect for city life.</li>
+                            <li>Ample storage for both fashion and function.</li>
+                            <li>High-quality materials for durability.</li>
+                            <li>Ideal for both work and casual wear.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fashion-Forward Backpack', '₹2,200')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 26.png" alt="Fashion-Forward Backpack" width="425">
+                <p class="price">₹2,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fashion-Forward Backpack', '₹2,500', `
+                        <ul>
+                            <li>Stylish and elegant for the modern professional.</li>
+                            <li>Comfortable and functional for everyday use.</li>
+                            <li>Durable design with plenty of space for gadgets and personal items.</li>
+                            <li>Perfect for those who want a chic yet practical backpack.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fashion-Forward Backpack', '₹2,500')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 27.png" alt="Fashion-Forward Backpack" width="425">
+                <p class="price">₹2,800</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Fashion-Forward Backpack', '₹2,800', `
+                        <ul>
+                            <li>Elegant and functional design for the modern fashionista.</li>
+                            <li>Multiple compartments for all your essentials.</li>
+                            <li>Durable, high-quality fabric to last through daily use.</li>
+                            <li>Perfect for both casual and professional settings.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Fashion-Forward Backpack', '₹2,800')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="parent" class="products-section">
+        <h2>Parent Backpacks</h2>
+        <p>Practical solutions for parents, including diaper backpacks and bottle warmers.</p>
+        <div class="row">
+            <div class="column">
+                <img src="img/image copy 29.png" alt="Parent Backpack" width="425">
+                <p class="price">₹2,000</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Parent Backpack', '₹2,000', `
+                        <ul>
+                            <li>Perfect for carrying diapers, baby essentials, and more.</li>
+                            <li>Insulated pockets to store bottles and keep them warm.</li>
+                            <li>Multiple compartments for easy organization.</li>
+                            <li>Comfortable straps for all-day wear.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Parent Backpack', '₹2,000')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 30.png" alt="Parent Backpack" width="425">
+                <p class="price">₹2,500</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Parent Backpack', '₹2,500', `
+                        <ul>
+                            <li>Designed with parents in mind for easy diaper changes on the go.</li>
+                            <li>Built-in changing mat for convenience.</li>
+                            <li>Spacious compartments to store baby clothes, wipes, and accessories.</li>
+                            <li>Stylish and discreet design for all parents.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Parent Backpack', '₹2,500')">Buy Now</button>
+                </div>
+            </div>
+            <div class="column">
+                <img src="img/image copy 31.png" alt="Parent Backpack" width="425">
+                <p class="price">₹3,000</p>
+                <div class="buttons">
+                    <button class="btn" onclick="showProductInfo('Parent Backpack', '₹3,000', `
+                        <ul>
+                            <li>Large storage for all your parenting needs.</li>
+                            <li>Multiple insulated and easy-access pockets for bottles and snacks.</li>
+                            <li>Waterproof fabric to protect your essentials in all weather conditions.</li>
+                            <li>Modern design that suits every parent’s style.</li>
+                        </ul>`)">More Information</button>
+                    <button class="btn" onclick="showThankYouModal('Parent Backpack', '₹3,000')">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <footer>
+        <div id="about" class="section">
+            <h2>About Us</h2>
+            <p>Welcome to Astro Bags, where innovation meets style. We are passionate about creating backpacks that cater to the needs of modern-day adventurers, professionals, students, and families. Combining cutting-edge technology, sustainable materials, and ergonomic designs, we redefine what a backpack can do.</p>
+        
+            <h3>Our Mission</h3>
+            <p>At Astro Bags, our mission is to revolutionize the backpack industry by blending functionality, durability, and style. We strive to empower our customers to explore beyond limits while contributing to a more sustainable world.</p>
+        
+            <h3>What We Stand For</h3>
+            <ul>
+                <li><strong>Innovation:</strong> Constantly pushing the boundaries with smart features like wireless charging, anti-theft designs, and modularity.</li>
+                <li><strong>Sustainability:</strong> Crafting eco-friendly backpacks using recycled and biodegradable materials.</li>
+                <li><strong>Customer-Centric:</strong> Designing with our customers’ needs and comfort in mind.</li>
+                <li><strong>Quality:</strong> Ensuring every Astro Bag is durable, reliable, and stylish.</li>
+            </ul>
+        
+            <h3>Why Choose Astro Bags?</h3>
+            <p>Whether you're scaling a mountain, heading to work, or managing a busy family, our backpacks are built to fit seamlessly into your lifestyle. From tech-enhanced features to ergonomic health-oriented designs, we’ve got you covered for every journey.</p>
+        
+            <h3>Join the Astro Bags Family</h3>
+            <p>Be part of our mission to explore beyond limits! Check out our wide range of backpacks tailored for every adventure.</p>
+            <a href="#galaxy" class="btn">View Our Products</a>
+        </div>
+        
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p>Email: support@astrobags.com</p>
+        <p>Phone: +91-9876543210</p>
+        <p>Address: Astro Bags Pvt. Ltd., Dehradun, Uttarakhand, India</p>
+    </section>
+
+    <!-- Footer -->
+        <p>&copy; 2024 Astro Bags | Explore Beyond Limits</p>
+    </footer>
+
+    <!-- JavaScript for Starry Sky -->
+    <script>
+        const numStars = 500; // Number of stars for the entire page
+        const body = document.body;
+
+        // Generate stars and add them to the body
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement("div");
+            star.classList.add("star");
+
+            // Random size and position for each star
+            const size = Math.random() * 2 + 1; // Size between 1px and 3px
+            const left = Math.random() * 100 + "%"; // Random left position (between 0% and 100%)
+            const top = Math.random() * 100 + "%"; // Random top position (between 0% and 100%)
+
+            // Apply random size, left, and top values
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = left;
+            star.style.top = top;
+
+            body.appendChild(star); // Append the star to the body
+        }
+        // Show modal for "More Information"
+        function showProductInfo(productName, price, description) {
+            const modal = document.getElementById("productInfoModal");
+            const title = document.getElementById("productInfoTitle");
+            const descriptionElement = document.getElementById("productInfoDescription");
+            const priceElement = document.getElementById("productInfoPrice");
+
+            // Update modal content
+            title.textContent = productName;
+            descriptionElement.innerHTML = description;  // Insert the bullet points HTML
+            priceElement.textContent = `Price: ${price}`;
+
+            modal.showModal();  // Open the modal
+        }
+
+        // Close the "More Information" modal
+        function closeProductInfoModal() {
+            const modal = document.getElementById("productInfoModal");
+            modal.close();  // Close the modal
+        }
+        // Show the modal when Buy Now is clicked
+        function showThankYouModal() {
+            const modal = document.getElementById("thankYouModal");
+            modal.showModal(); // Display the modal
+        }
+
+        // Close the modal
+        function closeModal() {
+            const modal = document.getElementById("thankYouModal");
+            modal.close(); // Close the modal
+        }
+
+    </script>
+    
+</body>
+</html>
